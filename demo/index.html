@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LoopSlider</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="../loopslider.css">
+<link rel="stylesheet" href="default.css">
+
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="jquery-ui.min.js"></script><!-- additional easing (optional) -->
+<script src="bootstrap-notify.min.js"></script><!-- plugin that turns standard Bootstrap alerts into "Growl-like" notifications (optional) -->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><!-- syntax highlighting of source code (optional) -->
+<script src="../jquery.loopslider.js"></script>
+<script>
+$(function(){
+	$('.header-slider').loopslider({
+		autoplay: true
+		,autoplayInterval:5000
+		,slideDuration: 800
+		,visibleItems: 1
+		,step: 1
+		,pagination: true
+	});
+	$('.slider').loopslider({
+		autoplay: false
+		,visibleItems: 4
+		,step: 3
+		,gap: 30
+		,slideDuration: 600
+		,easing: 'easeOutSine'
+		,prevButton: '#prev'
+		,nextButton: '#next'
+		,stopButton: '#stop'
+		,playButton: '#play'
+		,stopOnHover: true
+		,responsive: {
+			480: {visibleItems: 1,step: 1}
+			,760: {visibleItems: 3,step: 3}
+			,1000: {visibleItems: 4,step: 3}}
+		,onPlay: function(){
+			$('#play').prop('disabled',true);
+			$('#stop').prop('disabled',false);
+			$.notify({message: 'start playing',icon: 'glyphicon glyphicon-play'},{type: 'success',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+		,onStop: function(){
+			$('#play').prop('disabled',false);
+			$('#stop').prop('disabled',true);
+			$.notify({message: 'stopped',icon: 'glyphicon glyphicon-stop'},{type: 'danger',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+		,onMove: function(i,$e,direction){
+			$.notify({message: 'moved '+direction+': #'+i,icon: 'glyphicon glyphicon-transfer'},{type: 'info',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="container">
+	<header class="page-header">
+		<h1>LoopSlider</h1>
+		<p>jQuery plugin for creating a <b>responsive slider</b> with infinite loop support. <a href="https://github.com/pgooood/loopslider"><span class="glyphicon glyphicon-download-alt"></span> Download on GitHub</a></p>
+	</header>
+</div>
+<div class="header-slider">
+	<figure>
+		<img src="images/iw1.jpg" alt="" class="img-responsive">
+		<figcaption class="caption">Image caption 1</figcaption>
+	</figure>
+	<figure>
+		<img src="images/iw2.jpg" alt="" class="img-responsive">
+		<figcaption class="caption">Image caption 2</figcaption>
+	</figure>
+	<figure>
+		<img src="images/iw3.jpg" alt="" class="img-responsive">
+		<figcaption class="caption">Image caption 3</figcaption>
+	</figure>
+	<figure>
+		<img src="images/iw4.jpg" alt="" class="img-responsive">
+		<figcaption class="caption">Image caption 4</figcaption>
+	</figure>
+</div>
+<div class="container">
+	<h2>Basic Usage</h2>
+	<p>Load the jQuery javascript and LoopSlider plugin's files on the page.</p>
+	<pre class="prettyprint">
+&lt;link rel="stylesheet" href="../loopslider.css"&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="../jquery.loopslider.js"&gt;&lt;/script&gt;</pre>
+	<p>Wrap the HTML elements in a DIV container.</p>
+	<pre class="prettyprint">
+&lt;div class="slider-container"&gt;
+	&lt;figure&gt;
+		&lt;img src="images/i1.jpg" alt=""&gt;
+		&lt;figcaption class="caption"&gt;Image caption 1&lt;/figcaption&gt;
+	&lt;/figure&gt;
+	&lt;figure&gt;
+		&lt;img src="images/i2.jpg" alt=""&gt;
+		&lt;figcaption class="caption"&gt;Image caption 2&lt;/figcaption&gt;
+	&lt;/figure&gt;
+	&lt;figure&gt;
+		&lt;img src="images/i3.jpg" alt=""&gt;
+		&lt;figcaption class="caption"&gt;Image caption 3&lt;/figcaption&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;</pre>
+	<p>Call the plugin with basic settings</p>
+	<pre class="prettyprint">
+$(function(){
+	$('.slider-container').loopslider({
+		autoplay: true
+		,visibleItems: 1
+		,step: 1
+		,pagination: true
+	});
+});</pre>
+	
+	<p>&nbsp;</p>
+	<div class="row slider">
+		<figure class="thumbnail">
+			<img src="images/i1.jpg" alt="">
+			<figcaption class="caption">Image caption 1</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i2.jpg" alt="">
+			<figcaption class="caption">Image caption 2</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i3.jpg" alt="">
+			<figcaption class="caption">Image caption 3</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i4.jpg" alt="">
+			<figcaption class="caption">Image caption 4</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i5.jpg" alt="">
+			<figcaption class="caption">Image caption 5</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i6.jpg" alt="">
+			<figcaption class="caption">Image caption 6</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i7.jpg" alt="">
+			<figcaption class="caption">Image caption 7</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i8.jpg" alt="">
+			<figcaption class="caption">Image caption 8</figcaption>
+		</figure>
+		<figure class="thumbnail">
+			<img src="images/i9.jpg" alt="">
+			<figcaption class="caption">Image caption 9</figcaption>
+		</figure>
+	</div>
+	<div class="slider-buttons">
+		<div class="btn-group" role="group">
+			<button id="stop" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-stop"></span></button>
+			<button id="play" type="button" class="btn btn-success"><span class="glyphicon glyphicon-play"></span></button>
+		</div>
+		<div class="btn-group" role="group">
+			<button id="prev" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button>
+			<button id="next" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<h2>Available settings</h2>
+	<pre class="prettyprint">
+$('.slider-container').loopslider({
+	visibleItems: 3 // Amount for slides showing in window at once
+	,step: 1 // Amount of slides scrolling each time
+	,gap: 30 // Margin between each slide (in px)
+	,slideDuration: 400 // Slide transition duration (in ms)
+	,easing: 'swing' // "swing" or "linear", more easing <a href="https://jqueryui.com/easing/" target="_blank">jqueryui.com/easing/</a>
+	,autoplay: false // auto play slides
+	,autoplayInterval: 3000 // delay between slides
+	,stopOnHover: false // stop slideshow on mouse over
+	,responsive: {
+		480: {visibleItems: 1,step: 1}
+		,760: {visibleItems: 3,step: 3}
+		,1000: {visibleItems: 4,step: 3}
+	}
+	
+	// Controls
+	,pagination: true
+	,prevButton: '#prev' // CSS selector for element used to populate the "Prev" control
+	,nextButton: '#next' // CSS selector for element used to populate the "Next" control
+	,stopButton: '#stop' // CSS selector for element used to populate the "Stop" control
+	,playButton: '#play' // CSS selector for element used to populate the "Play" control
+	
+	// Callbacks
+	,onStop: function(){ /* your code here */ }
+	,onPlay: function(){ /* your code here */ }
+	,onMove: function(index, $element, direction){ /* your code here */ }
+});</pre>
+<p><a href="https://github.com/pgooood/loopslider"><span class="glyphicon glyphicon-download-alt"></span> Download on GitHub</a></p>
+</div>
+<footer class="container footer">
+	<p>Copyright © 2015 Pavel Khoroshkov</p>
+</footer>
+</body>
+</html>
