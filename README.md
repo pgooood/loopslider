@@ -71,3 +71,5 @@ $('.slider-container').loopslider({
 	,onMove: function(index, $element, direction){ /* your code here */ }
 });
 ```
+## License
+Copyright (c) 2015 Pavel Khoroshkov. Licensed under the [MIT license](https://github.com/pgooood/loopslider/blob/master/LICENSE).
