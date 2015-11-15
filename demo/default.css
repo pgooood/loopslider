@@ -13,6 +13,18 @@
 .header-slider figure{
 	position: relative;
 	text-align: center;
+	width: 100%;
+	overflow: hidden;
+	height: 450px;
+}
+.header-slider figure img{
+	position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+	height: 100%;
 }
 .header-slider figure > figcaption{
 	position: absolute;
@@ -37,4 +49,16 @@ pre.prettyprint.prettyprinted{
 	margin-top:40px;
 	color: #777;
 	border-top: 1px solid #e5e5e5;
+}
+@media all and (max-width: 760px){
+    .header-slider figure{
+		height: 360px;
+		width: auto;
+	}
+}
+@media all and (max-width: 480px){
+    .header-slider figure{
+		height: 240px;
+		width: auto;
+	}
 }

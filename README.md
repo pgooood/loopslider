@@ -49,9 +49,10 @@ $('.slider-container').loopslider({
 	,gap: 30 // Margin between each slide (in px)
 	,slideDuration: 400 // Slide transition duration (in ms)
 	,easing: 'swing' // "swing" or "linear", more easing jqueryui.com/easing/
-	,autoplay: false // auto play slides
-	,autoplayInterval: 3000 // delay between slides
-	,stopOnHover: false // stop slideshow on mouse over
+	,autoplay: false // Auto play slides
+	,autoplayInterval: 3000 // Delay between slides
+	,stopOnHover: false // Stop slideshow on mouse over
+	,touchSupport: true // Handling swipe gestures
 	,responsive: {
 		480: {visibleItems: 1,step: 1}
 		,760: {visibleItems: 3,step: 3}
@@ -60,6 +61,7 @@ $('.slider-container').loopslider({
 	
 	// Controls
 	,pagination: true
+	,navigation: true // prev and next buttons
 	,prevButton: '#prev' // CSS selector for element used to populate the "Prev" control
 	,nextButton: '#next' // CSS selector for element used to populate the "Next" control
 	,stopButton: '#stop' // CSS selector for element used to populate the "Stop" control

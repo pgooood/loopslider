@@ -1,18 +1,21 @@
 /**
+ * LoopSlider
+ * @version 0.1
  * @author Pavel Khoroshkov aka pgood
  */
 (function($){$.fn.loopslider=function(options){
  
  	options = $.extend({
-		htmlSliderWraper:'<div style="overflow:hidden;"></div>'
+		htmlSliderWraper:'<div class="loopslider"></div>'
 		,htmlSliderBody:'<div style="position:relative;"></div>'
-		,htmlItemWraper:'<div style="float:left;"></div>'
-		,htmlPaginationContainer:'<div class="slider-pagination"></div>'
+		,htmlItemWraper:'<div style="display:inline-block;"></div>'
+		,htmlPaginationContainer:'<div class="loopslider-pagination"></div>'
 		,htmlPaginationItem:'<div></div>'
 		,visibleItems:3
 		,slideDuration:400
 		,easing:'swing'
 		,responsive:false
+		,touchSupport:true
 		,autoplay:false
 		,stopOnHover:false
 		,autoplayInterval:3000
@@ -20,10 +23,10 @@
 		,nextButton:null
 		,stopButton:null
 		,playButton:null
-		,hideButtons:true
 		,gap:0
 		,step:1
 		,pagination:false
+		,navigation:false
 		,onStop:null
 		,onPlay:null
 		,onMove:null
@@ -74,8 +77,6 @@
 			});
 			$(slider.arInvisible).detach();
 		};
-		if(options.hideButtons)
-			buttonsVisibility(slider.enabled);
 		return slider;
 	};
 	
@@ -91,31 +92,53 @@
 			for(var i = 0; i < numPages; i++)
 				$(options.htmlPaginationItem)
 					.appendTo($e)
-					.addClass('slider-page-nav-item')
+					.addClass('loopslider-page-nav-item')
 					.click(function(i){return function(){moveTo(i*options.visibleItems);};}(i));
 			$e.insertAfter(slider.$e.parent());
-			slider.$pagination = $e.find('>.slider-page-nav-item');
+			slider.$pagination = $e.find('>.loopslider-page-nav-item');
 			activatePageNavItem(slider);
+		});
+	};
+	
+	
+	function addSvgButton(name,$container){
+		if(!$('#loopslider-sprite').length)
+			$('body').get(0).insertAdjacentHTML('afterbegin'
+				,'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="loopslider-sprite" style="display:none">'
+					+'<symbol id="loopslider-prev-icon" viewBox="0 0 50 50"><path d="M27.3 34.7L17.6 25l9.7-9.7 1.4 1.4-8.3 8.3 8.3 8.3z"/></symbol>'
+					+'<symbol id="loopslider-next-icon" viewBox="0 0 50 50"><path d="M22.7 34.7l-1.4-1.4 8.3-8.3-8.3-8.3 1.4-1.4 9.7 9.7z"/></symbol>'
+				+'</svg>');
+		var $e = $('<div class="loopslider-nav-button loopslider-'+name+'-button"></div>');
+		$e.appendTo($container)
+			.get(0)
+			.insertAdjacentHTML('afterbegin','<svg><use xlink:href="#loopslider-'+name+'-icon"/></svg>');
+		return $e;
+	};
+	
+	function navigation(){
+		$(sliders).each(function(){
+			var slider = this
+				,setHeight = function(){
+					var h = slider.$e.parent().height() / 2;
+					slider.prevButton.css('top',h - slider.prevButton.height()/2);
+					slider.nextButton.css('top',h - slider.nextButton.height()/2);
+				};
+			if(!slider.prevButton)
+				slider.prevButton = addSvgButton('prev',slider.$e.parent())
+					.click(function(){prev();});
+			if(!this.nextButton)
+				this.nextButton = addSvgButton('next',slider.$e.parent())
+					.click(function(){next();});
+			setHeight();
+			slider.$e.find('img').load(setHeight);
 		});
 	};
 	
 	function activatePageNavItem(slider){
 		if(slider.$pagination){
-			slider.$pagination.removeClass('active-nav-item');
-			slider.$pagination.eq(Math.round(slider.currentIndex() / options.visibleItems)).addClass('active-nav-item');
+			slider.$pagination.removeClass('loopslider-active');
+			slider.$pagination.eq(Math.round(slider.currentIndex() / options.visibleItems)).addClass('loopslider-active');
 		};
-	};
-	
-	function buttonsVisibility(v){
-		var $buttons = $([
-				$(options.nextButton)
-				,$(options.prevButton)
-				,$(options.playButton)
-				,$(options.stopButton)
-			]);
-		$buttons.each(function(){
-			v ? this.show() : this.hide();
-		});
 	};
 	
 	function prev(step){
@@ -139,7 +162,7 @@
 					if(isPlaying)
 						play();
 					if(typeof(options.onMove) === 'function')
-						options.onMove(slider.currentIndex(),slider.$currentItem().find('>*:first-child'),'back');
+						options.onMove(slider.currentIndex(),slider.$currentItem().find('>*:first-child'),'backward');
 				});
 			};
 		});
@@ -183,7 +206,6 @@
 				,v1 = index - pos
 				,v2 = slider.length - pos + index
 				,v3 = slider.length - index + pos;
-			//console.log('length = '+slider.length+'; index = '+index+'; pos = '+pos+'; v1 = '+v1+'; v2 = '+v2+'; v3 = '+v3);
 			if(index >= slider.length || index == pos)
 				return true;
 			if(Math.abs(v1) < v2 && Math.abs(v1) < v3){
@@ -198,9 +220,8 @@
 		stop();
 		$(sliders).each(function(){
 			var slider = this;
-			if(slider.enabled && options.autoplayInterval > options.slideDuration){
+			if(slider.enabled && options.autoplayInterval > options.slideDuration)
 				slider.autoplayIntervalId = window.setInterval(function(){next();},options.autoplayInterval);
-			};
 		});
 	};
 	
@@ -221,6 +242,31 @@
 			options.onPlay();
 	};
 	
+	function touchEvents(){
+		$(sliders).each(function(){
+			var el = this.$e.get(0)
+				,startX
+				,startY
+				,threshold = 100 //required min distance traveled to be considered swipe
+				,allowedTime = 1000 //maximum time allowed to travel that distance
+				,startTime;
+			if(!el.addEventListener)return;
+			el.addEventListener('touchstart',function(event){
+				var o = event.changedTouches[0];
+				startX = o.pageX;
+				startY = o.pageY;
+				startTime = new Date().getTime();
+			},false);
+			el.addEventListener('touchend', function(e){
+				var o = e.changedTouches[0]
+					,elapsedTime = new Date().getTime() - startTime
+					,dist = Math.abs(o.pageX - startX);
+				if(allowedTime >= elapsedTime && dist >= threshold && dist >= Math.abs(o.pageY - startY))
+					o.pageX - startX > 0 ? prev() : next();
+			},false);
+		});
+	};
+	
 	function initAll(){
 		stop();
 		$(sliders).each(function(){
@@ -238,6 +284,8 @@
 		$(sliders).each(function(){
 			init(this);
 		});
+		if(options.navigation)
+			navigation();
 		if(options.pagination)
 			pagination();
 		if(isPlaying)
@@ -261,6 +309,9 @@
 			options.onStop();
 		return false;
 	});
+	
+	if(options.touchSupport)
+		touchEvents();
 	
 	if(options.autoplay)
 		autoplay();

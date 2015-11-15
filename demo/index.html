@@ -24,12 +24,13 @@
 <script>
 $(function(){
 	$('.header-slider').loopslider({
-		autoplay: true
+		visibleItems: 1
+		,step: 1
+		,autoplay: true
 		,autoplayInterval:5000
 		,slideDuration: 800
-		,visibleItems: 1
-		,step: 1
 		,pagination: true
+		,navigation: true
 	});
 	$('.slider').loopslider({
 		autoplay: false
@@ -74,23 +75,35 @@ $(function(){
 </div>
 <div class="header-slider">
 	<figure>
-		<img src="images/iw1.jpg" alt="" class="img-responsive">
+		<img src="images/iw1.jpg" alt="">
 		<figcaption class="caption">Image caption 1</figcaption>
 	</figure>
 	<figure>
-		<img src="images/iw2.jpg" alt="" class="img-responsive">
+		<img src="images/iw2.jpg" alt="">
 		<figcaption class="caption">Image caption 2</figcaption>
 	</figure>
 	<figure>
-		<img src="images/iw3.jpg" alt="" class="img-responsive">
+		<img src="images/iw3.jpg" alt="">
 		<figcaption class="caption">Image caption 3</figcaption>
 	</figure>
 	<figure>
-		<img src="images/iw4.jpg" alt="" class="img-responsive">
+		<img src="images/iw4.jpg" alt="">
 		<figcaption class="caption">Image caption 4</figcaption>
 	</figure>
 </div>
 <div class="container">
+	<ul>
+		<li>Fully responsive</li>
+		<li>Slides can contain images, video, or HTML content</li>
+		<li>Advanced touch / swipe support built-in</li>
+		<li>Callback API</li>
+		<li>Can be paused while hovering slideshow</li>
+		<li>Small file size, fully themed, simple to implement</li>
+		<li>Browser support: Firefox, Chrome, Safari, iOS, Android, IE9+</li>
+		<li>Tons of configuration</li>
+	</ul>
+	<p>&nbsp;</p>
+	
 	<h2>Basic Usage</h2>
 	<p>Load the jQuery javascript and LoopSlider plugin's files on the page.</p>
 	<pre class="prettyprint">
@@ -182,9 +195,10 @@ $('.slider-container').loopslider({
 	,gap: 30 // Margin between each slide (in px)
 	,slideDuration: 400 // Slide transition duration (in ms)
 	,easing: 'swing' // "swing" or "linear", more easing <a href="https://jqueryui.com/easing/" target="_blank">jqueryui.com/easing/</a>
-	,autoplay: false // auto play slides
-	,autoplayInterval: 3000 // delay between slides
-	,stopOnHover: false // stop slideshow on mouse over
+	,autoplay: false // Auto play slides
+	,autoplayInterval: 3000 // Delay between slides
+	,stopOnHover: false // Stop slideshow on mouse over
+	,touchSupport: true // Handling swipe gestures
 	,responsive: {
 		480: {visibleItems: 1,step: 1}
 		,760: {visibleItems: 3,step: 3}
@@ -193,6 +207,7 @@ $('.slider-container').loopslider({
 	
 	// Controls
 	,pagination: true
+	,navigation: true // prev and next buttons
 	,prevButton: '#prev' // CSS selector for element used to populate the "Prev" control
 	,nextButton: '#next' // CSS selector for element used to populate the "Next" control
 	,stopButton: '#stop' // CSS selector for element used to populate the "Stop" control
