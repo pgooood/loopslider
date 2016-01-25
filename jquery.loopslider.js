@@ -2,6 +2,7 @@
  * LoopSlider
  * @version 0.1
  * @author Pavel Khoroshkov aka pgood
+ * @link https://github.com/pgooood/loopslider
  */
 (function($){$.fn.loopslider=function(options){
  
