@@ -26,6 +26,12 @@
     margin: auto;
 	height: 100%;
 }
+.header-slider > figure{
+	visibility: hidden;
+}
+.header-slider > figure:first-child{
+	visibility: visible;
+}
 .header-slider figure > figcaption{
 	position: absolute;
 	bottom: 0;
