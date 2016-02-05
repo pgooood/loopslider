@@ -109,10 +109,11 @@
 					+'<symbol id="loopslider-prev-icon" viewBox="0 0 50 50"><path d="M27.3 34.7L17.6 25l9.7-9.7 1.4 1.4-8.3 8.3 8.3 8.3z"/></symbol>'
 					+'<symbol id="loopslider-next-icon" viewBox="0 0 50 50"><path d="M22.7 34.7l-1.4-1.4 8.3-8.3-8.3-8.3 1.4-1.4 9.7 9.7z"/></symbol>'
 				+'</svg>');
-		var $e = $('<div class="loopslider-nav-button loopslider-'+name+'-button"></div>');
+		var href = window.location.pathname+window.location.search+'#loopslider-'+name+'-icon';
+			$e = $('<div class="loopslider-nav-button loopslider-'+name+'-button"></div>');
 		$e.appendTo($container)
 			.get(0)
-			.insertAdjacentHTML('afterbegin','<svg><use xlink:href="#loopslider-'+name+'-icon"/></svg>');
+			.insertAdjacentHTML('afterbegin','<svg><use xlink:href="'+href+'"/></svg>');
 		return $e;
 	};
 	
