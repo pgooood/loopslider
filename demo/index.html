@@ -7,17 +7,12 @@
 <title>LoopSlider</title>
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="../loopslider.css">
 <link rel="stylesheet" href="default.css">
-
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="jquery-ui.min.js"></script><!-- additional easing (optional) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="bootstrap-notify.min.js"></script><!-- plugin that turns standard Bootstrap alerts into "Growl-like" notifications (optional) -->
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><!-- syntax highlighting of source code (optional) -->
 <script src="../jquery.loopslider.min.js"></script>
@@ -51,15 +46,15 @@ $(function(){
 		,onPlay: function(){
 			$('#play').prop('disabled',true);
 			$('#stop').prop('disabled',false);
-			$.notify({message: 'start playing',icon: 'glyphicon glyphicon-play'},{type: 'success',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+			$.notify({message: 'start playing'},{type: 'success',delay: 3000,placement: {from: 'bottom',align: 'right'}});
 		}
 		,onStop: function(){
 			$('#play').prop('disabled',false);
 			$('#stop').prop('disabled',true);
-			$.notify({message: 'stopped',icon: 'glyphicon glyphicon-stop'},{type: 'danger',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+			$.notify({message: 'stopped'},{type: 'danger',delay: 3000,placement: {from: 'bottom',align: 'right'}});
 		}
 		,onMove: function(i,$e,direction){
-			$.notify({message: 'moved '+direction+': #'+i,icon: 'glyphicon glyphicon-transfer'},{type: 'info',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+			$.notify({message: 'moved '+direction+': #'+i},{type: 'info',delay: 3000,placement: {from: 'bottom',align: 'right'}});
 		}
 	});
 });
@@ -70,25 +65,25 @@ $(function(){
 <div class="container">
 	<header class="page-header">
 		<h1>LoopSlider</h1>
-		<p>jQuery plugin for creating a <b>responsive slider</b> with infinite loop support. <a href="https://github.com/pgooood/loopslider"><span class="glyphicon glyphicon-download-alt"></span> Download on GitHub</a></p>
+		<p class="lead">jQuery plugin for creating a <b>responsive slider</b> with infinite loop support. <a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
 	</header>
 </div>
 <div class="header-slider">
 	<figure>
 		<img src="images/iw1.jpg" alt="">
-		<figcaption class="caption">Image caption 1</figcaption>
+		<figcaption class="card-body">Image caption 1</figcaption>
 	</figure>
 	<figure>
 		<img src="images/iw2.jpg" alt="">
-		<figcaption class="caption">Image caption 2</figcaption>
+		<figcaption class="card-body">Image caption 2</figcaption>
 	</figure>
 	<figure>
 		<img src="images/iw3.jpg" alt="">
-		<figcaption class="caption">Image caption 3</figcaption>
+		<figcaption class="card-body">Image caption 3</figcaption>
 	</figure>
 	<figure>
 		<img src="images/iw4.jpg" alt="">
-		<figcaption class="caption">Image caption 4</figcaption>
+		<figcaption class="card-body">Image caption 4</figcaption>
 	</figure>
 </div>
 <div class="container">
@@ -115,15 +110,15 @@ $(function(){
 &lt;div class="slider-container"&gt;
 	&lt;figure&gt;
 		&lt;img src="images/i1.jpg" alt=""&gt;
-		&lt;figcaption class="caption"&gt;Image caption 1&lt;/figcaption&gt;
+		&lt;figcaption&gt;Image caption 1&lt;/figcaption&gt;
 	&lt;/figure&gt;
 	&lt;figure&gt;
 		&lt;img src="images/i2.jpg" alt=""&gt;
-		&lt;figcaption class="caption"&gt;Image caption 2&lt;/figcaption&gt;
+		&lt;figcaption&gt;Image caption 2&lt;/figcaption&gt;
 	&lt;/figure&gt;
 	&lt;figure&gt;
 		&lt;img src="images/i3.jpg" alt=""&gt;
-		&lt;figcaption class="caption"&gt;Image caption 3&lt;/figcaption&gt;
+		&lt;figcaption&gt;Image caption 3&lt;/figcaption&gt;
 	&lt;/figure&gt;
 &lt;/div&gt;</pre>
 	<p>Call the plugin with basic settings</p>
@@ -139,51 +134,51 @@ $(function(){
 	
 	<p>&nbsp;</p>
 	<div class="row slider">
-		<figure class="thumbnail">
-			<img src="images/i1.jpg" alt="">
-			<figcaption class="caption">Image caption 1</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i1.jpg" alt="">
+			<figcaption class="card-body">Image caption 1</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i2.jpg" alt="">
-			<figcaption class="caption">Image caption 2</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i2.jpg" alt="">
+			<figcaption class="card-body">Image caption 2</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i3.jpg" alt="">
-			<figcaption class="caption">Image caption 3</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i3.jpg" alt="">
+			<figcaption class="card-body">Image caption 3</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i4.jpg" alt="">
-			<figcaption class="caption">Image caption 4</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i4.jpg" alt="">
+			<figcaption class="card-body">Image caption 4</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i5.jpg" alt="">
-			<figcaption class="caption">Image caption 5</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i5.jpg" alt="">
+			<figcaption class="card-body">Image caption 5</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i6.jpg" alt="">
-			<figcaption class="caption">Image caption 6</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i6.jpg" alt="">
+			<figcaption class="card-body">Image caption 6</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i7.jpg" alt="">
-			<figcaption class="caption">Image caption 7</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i7.jpg" alt="">
+			<figcaption class="card-body">Image caption 7</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i8.jpg" alt="">
-			<figcaption class="caption">Image caption 8</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i8.jpg" alt="">
+			<figcaption class="card-body">Image caption 8</figcaption>
 		</figure>
-		<figure class="thumbnail">
-			<img src="images/i9.jpg" alt="">
-			<figcaption class="caption">Image caption 9</figcaption>
+		<figure class="card">
+			<img class="card-img-top" src="images/i9.jpg" alt="">
+			<figcaption class="card-body">Image caption 9</figcaption>
 		</figure>
 	</div>
 	<div class="slider-buttons">
 		<div class="btn-group" role="group">
-			<button id="stop" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-stop"></span></button>
-			<button id="play" type="button" class="btn btn-success"><span class="glyphicon glyphicon-play"></span></button>
+			<button id="stop" type="button" class="btn btn-danger"><i class="material-icons">stop</i></button>
+			<button id="play" type="button" class="btn btn-success"><i class="material-icons">play_arrow</i></button>
 		</div>
 		<div class="btn-group" role="group">
-			<button id="prev" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span></button>
-			<button id="next" type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
+			<button id="prev" type="button" class="btn btn-secondary"><i class="material-icons">keyboard_arrow_left</i></button>
+			<button id="next" type="button" class="btn btn-secondary"><i class="material-icons">keyboard_arrow_right</i></button>
 		</div>
 	</div>
 	<p>&nbsp;</p>
@@ -218,10 +213,10 @@ $('.slider-container').loopslider({
 	,onPlay: function(){ /* your code here */ }
 	,onMove: function(index, $element, direction){ /* your code here */ }
 });</pre>
-<p><a href="https://github.com/pgooood/loopslider"><span class="glyphicon glyphicon-download-alt"></span> Download on GitHub</a></p>
+<p><a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
 </div>
 <footer class="container footer">
-	<p>Copyright © 2016 Pavel Khoroshkov</p>
+	<p>Copyright © 2017 Pavel Khoroshkov</p>
 </footer>
 </body>
 </html>
