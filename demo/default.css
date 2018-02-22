@@ -3,9 +3,8 @@
  * @author    : Pavel Khoroshkov aka pgood
  */
 
-.slider .thumbnail > img{
-	width: 100%;
-	height: auto;
+.page-header{
+	margin: 40px 0 20px;
 }
 .header-slider{
 	margin: 0 0 40px;
@@ -55,6 +54,9 @@ pre.prettyprint.prettyprinted{
 	margin-top:40px;
 	color: #777;
 	border-top: 1px solid #e5e5e5;
+}
+.material-icons{
+	vertical-align: text-bottom;
 }
 @media all and (max-width: 760px){
     .header-slider figure{
