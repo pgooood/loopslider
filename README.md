@@ -1,5 +1,5 @@
 # LoopSlider
-jQuery plugin for creating a responsive slider with infinite loop support. [Demo page](http://pgood.ru/userfiles/file/loopslider/demo/)
+jQuery plugin for creating a responsive slider with infinite loop support. [Demo page](http://pgood.space/userfiles/file/loopslider/demo/)
 
 Basic Usage
 -------
