@@ -3,10 +3,10 @@ jQuery plugin for creating a responsive slider with infinite loop support. [Demo
 
 Basic Usage
 -------
-Load the jQuery javascript and LoopSlider plugin's files on the page.
+Load the jQuery and LoopSlider plugin's files on the page. Requires jQuery 1.12.0 or higher, dosen't work with the slim build.
 ```html
 <link rel="stylesheet" href="../loopslider.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="../jquery.loopslider.js"></script>
 ```
 
@@ -40,6 +40,46 @@ $(function(){
 });
 ```
 
+Parallax mode
+-------
+Set your images as background of slide elements
+```html
+<div class="slider-container">
+	<figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figcaption class="card-body">Image caption 1</figcaption>
+	</figure>
+	<figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figcaption class="card-body">Image caption 2</figcaption>
+	</figure>
+	<figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figcaption class="card-body">Image caption 3</figcaption>
+	</figure>
+</div>
+```
+
+Call the plugin with `parallax` setting
+```js
+$(function(){
+	$('.slider-container').loopslider({
+		visibleItems: 1
+		,pagination: true
+		,navigation: true
+		,parallax: {
+			/* 
+			 * Selector for an element which contains background image.
+			 * '>*' is default value and corresponds to a root slide element
+			 */
+			e: '>*'
+			/* 
+			 * Index of background shift (1 is default).
+			 * Might be in range from 0.1 to 1 
+			 */
+			,index: .8
+		}
+	});
+});
+```
+
 Available settings
 -------
 ```js
@@ -58,6 +98,8 @@ $('.slider-container').loopslider({
 		,760: {visibleItems: 3,step: 3}
 		,1000: {visibleItems: 4,step: 3}
 	}
+	,fullscreen: false //If true sets the height of the slides equal of a viewport height
+	,parallax: null
 	
 	// Controls
 	,pagination: true
@@ -74,4 +116,4 @@ $('.slider-container').loopslider({
 });
 ```
 ## License
-Copyright (c) 2015 Pavel Khoroshkov. Licensed under the [MIT license](https://github.com/pgooood/loopslider/blob/master/LICENSE).
+Copyright (c) 2018 Pavel Khoroshkov. Licensed under the [MIT license](https://github.com/pgooood/loopslider/blob/master/LICENSE).

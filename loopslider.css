@@ -5,6 +5,17 @@
 	position:relative;
 	overflow:hidden;
 }
+.loopslider-body{
+	position:relative;
+}
+.loopslider-item-wraper{
+	display:inline-block;
+}
+.loopslider-fullscreen .loopslider-body,
+.loopslider-fullscreen .loopslider-item-wraper,
+.loopslider-fullscreen .loopslider-item-wraper > *{
+	height: 100%;
+}
 .loopslider-pagination{
 	display:block;
 	text-align:center;

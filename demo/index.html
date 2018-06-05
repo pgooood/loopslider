@@ -1,71 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LoopSlider</title>
-
-<!-- Bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="../loopslider.css">
-<link rel="stylesheet" href="default.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="bootstrap-notify.min.js"></script><!-- plugin that turns standard Bootstrap alerts into "Growl-like" notifications (optional) -->
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><!-- syntax highlighting of source code (optional) -->
-<script src="../jquery.loopslider.min.js"></script>
-<script>
-$(function(){
-	$('.header-slider').loopslider({
-		visibleItems: 1
-		,step: 1
-		,autoplay: true
-		,autoplayInterval:5000
-		,slideDuration: 800
-		,pagination: true
-		,navigation: true
-	});
-	$('.slider').loopslider({
-		autoplay: false
-		,visibleItems: 4
-		,step: 3
-		,gap: 30
-		,slideDuration: 600
-		,easing: 'easeOutSine'
-		,prevButton: '#prev'
-		,nextButton: '#next'
-		,stopButton: '#stop'
-		,playButton: '#play'
-		,stopOnHover: true
-		,responsive: {
-			480: {visibleItems: 1,step: 1}
-			,760: {visibleItems: 3,step: 3}
-			,1000: {visibleItems: 4,step: 3}}
-		,onPlay: function(){
-			$('#play').prop('disabled',true);
-			$('#stop').prop('disabled',false);
-			$.notify({message: 'start playing'},{type: 'success',delay: 3000,placement: {from: 'bottom',align: 'right'}});
-		}
-		,onStop: function(){
-			$('#play').prop('disabled',false);
-			$('#stop').prop('disabled',true);
-			$.notify({message: 'stopped'},{type: 'danger',delay: 3000,placement: {from: 'bottom',align: 'right'}});
-		}
-		,onMove: function(i,$e,direction){
-			$.notify({message: 'moved '+direction+': #'+i},{type: 'info',delay: 3000,placement: {from: 'bottom',align: 'right'}});
-		}
-	});
-});
-</script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>LoopSlider</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="../loopslider.css">
+	<link rel="stylesheet" href="default.css">
 </head>
 
 <body>
 <div class="container">
 	<header class="page-header">
 		<h1>LoopSlider</h1>
-		<p class="lead">jQuery plugin for creating a <b>responsive slider</b> with infinite loop support. <a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
+		<p class="lead">jQuery plugin for creating a responsive slider with infinite loop support. Requires jQuery 1.12.0 or higher, dosen't work with the slim build. <a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
 	</header>
 </div>
 <div class="header-slider">
@@ -94,7 +43,9 @@ $(function(){
 		<li>Callback API</li>
 		<li>Can be paused while hovering slideshow</li>
 		<li>Small file size, fully themed, simple to implement</li>
-		<li>Browser support: Firefox, Chrome, Safari, iOS, Android, IE9+</li>
+		<li>Full screen mode</li>
+		<li>Parallax mode</li>
+		<li>Browser support: Firefox, Chrome, Safari, iOS, Android, IE10+</li>
 		<li>Tons of configuration</li>
 	</ul>
 	<p>&nbsp;</p>
@@ -103,7 +54,7 @@ $(function(){
 	<p>Load the jQuery javascript and LoopSlider plugin's files on the page.</p>
 	<pre class="prettyprint">
 &lt;link rel="stylesheet" href="../loopslider.css"&gt;
-&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="../jquery.loopslider.js"&gt;&lt;/script&gt;</pre>
 	<p>Wrap the HTML elements in a DIV container.</p>
 	<pre class="prettyprint">
@@ -182,6 +133,54 @@ $(function(){
 		</div>
 	</div>
 	<p>&nbsp;</p>
+	<h2>Parallax mode</h2>
+	<p>Set your images as background of slide elements</p>
+	<pre class="prettyprint">
+&lt;div class="slider-container"&gt;
+	&lt;figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+		&lt;figcaption class="card-body"&gt;Image caption 1&lt;/figcaption&gt;
+	&lt;/figure&gt;
+	&lt;figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+		&lt;figcaption class="card-body"&gt;Image caption 2&lt;/figcaption&gt;
+	&lt;/figure&gt;
+	&lt;figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+		&lt;figcaption class="card-body"&gt;Image caption 3&lt;/figcaption&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;
+	</pre>
+	<p>Call the plugin with <code>parallax</code> setting</p>
+	<pre class="prettyprint">
+$(function(){
+	$('.slider-container').loopslider({
+		visibleItems: 1
+		,pagination: true
+		,navigation: true
+		,parallax: {
+			/* 
+			 * Selector for an element which contains background image.
+			 * '&gt;*' is default value and corresponds to a root slide element
+			 */
+			e: '&gt;*'
+			/* 
+			 * Index of background shift (1 is default).
+			 * Might be in range from 0.1 to 1 
+			 */
+			,index: .8
+		}
+	});
+});</pre>
+	<div class="parallax-slider">
+		<figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+			<figcaption class="card-body">Image caption 1</figcaption>
+		</figure>
+		<figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+			<figcaption class="card-body">Image caption 2</figcaption>
+		</figure>
+		<figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+			<figcaption class="card-body">Image caption 3</figcaption>
+		</figure>
+	</div>
+	<p>&nbsp;</p>
 	<h2>Available settings</h2>
 	<pre class="prettyprint">
 $('.slider-container').loopslider({
@@ -199,6 +198,8 @@ $('.slider-container').loopslider({
 		,760: {visibleItems: 3,step: 3}
 		,1000: {visibleItems: 4,step: 3}
 	}
+	,fullscreen: false
+	,parallax: null
 	
 	// Controls
 	,pagination: true
@@ -213,10 +214,68 @@ $('.slider-container').loopslider({
 	,onPlay: function(){ /* your code here */ }
 	,onMove: function(index, $element, direction){ /* your code here */ }
 });</pre>
+
 <p><a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
 </div>
 <footer class="container footer">
-	<p>Copyright © 2017 Pavel Khoroshkov</p>
+	<p>Copyright © 2018 Pavel Khoroshkov</p>
 </footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- (optional) -->
+<script src="bootstrap-notify.min.js"></script><!-- plugin that turns standard Bootstrap alerts into "Growl-like" notifications (optional) -->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><!-- syntax highlighting of source code (optional) -->
+<script src="../jquery.loopslider.js"></script>
+<script>
+$(function(){
+	$('.header-slider').loopslider({
+		visibleItems: 1
+		,step: 1
+		,autoplay: true
+		,autoplayInterval:5000
+		,slideDuration: 800
+		,pagination: true
+		,navigation: true
+	});
+	$('.parallax-slider').loopslider({
+		visibleItems: 1
+		,pagination: true
+		,navigation: true
+		,parallax: {
+			e: '>*'
+			,index: .8
+		}
+	});
+	$('.slider').loopslider({
+		autoplay: false
+		,visibleItems: 4
+		,step: 3
+		,gap: 30
+		,slideDuration: 600
+		,easing: 'easeOutSine'
+		,prevButton: '#prev'
+		,nextButton: '#next'
+		,stopButton: '#stop'
+		,playButton: '#play'
+		,stopOnHover: true
+		,responsive: {
+			480: {visibleItems: 1,step: 1}
+			,760: {visibleItems: 3,step: 3}
+			,1000: {visibleItems: 4,step: 3}}
+		,onPlay: function(){
+			$('#play').prop('disabled',true);
+			$('#stop').prop('disabled',false);
+			$.notify({message: 'start playing'},{type: 'success',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+		,onStop: function(){
+			$('#play').prop('disabled',false);
+			$('#stop').prop('disabled',true);
+			$.notify({message: 'stopped'},{type: 'danger',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+		,onMove: function(i,$e,direction){
+			$.notify({message: 'moved '+direction+': #'+i},{type: 'info',delay: 3000,placement: {from: 'bottom',align: 'right'}});
+		}
+	});
+});
+</script>
 </body>
 </html>

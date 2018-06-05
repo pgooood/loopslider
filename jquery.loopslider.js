@@ -1,6 +1,6 @@
 /**
  * LoopSlider
- * @version 0.1
+ * @version 0.2
  * @author Pavel Khoroshkov aka pgood
  * @link https://github.com/pgooood/loopslider
  */
@@ -8,8 +8,8 @@
  
  	options = $.extend({
 		htmlSliderWraper:'<div class="loopslider"></div>'
-		,htmlSliderBody:'<div style="position:relative;"></div>'
-		,htmlItemWraper:'<div style="display:inline-block;"></div>'
+		,htmlSliderBody:'<div class="loopslider-body"></div>'
+		,htmlItemWraper:'<div class="loopslider-item-wraper"></div>'
 		,htmlPaginationContainer:'<div class="loopslider-pagination"></div>'
 		,htmlPaginationItem:'<div></div>'
 		,visibleItems:3
@@ -20,6 +20,8 @@
 		,autoplay:false
 		,stopOnHover:false
 		,autoplayInterval:3000
+		,fullscreen:false
+		,parallax:null
 		,prevButton:null
 		,nextButton:null
 		,stopButton:null
@@ -39,7 +41,17 @@
 	options.step = parseInt(options.step);
 	options.step = isNaN(options.step) || options.step < 1
 				? 1 : (options.step > options.visibleItems ? options.visibleItems : options.step);
-	
+	if(options.parallax){
+		if(typeof(options.parallax) != 'object'){
+			options.parallax = {e: '>*',index: 1};
+		}else{
+			if(!options.parallax.e)
+				options.parallax.e = '>*';
+			if(isNaN(parseFloat(options.parallax.index)))
+				options.parallax = null;
+		}
+	}
+
 	var sliders = [],isPlaying;
 	
 	function wrap($container){
@@ -60,8 +72,9 @@
 		return slider;
 	};
 	
-	function init(slider){
-		var width = slider.$e.parent().width();
+	function init(slider,index){
+		var $win = $(window)
+			,width = slider.$e.parent().width();
 		slider.itemWidth = (width - options.gap * (options.visibleItems - 1)) / options.visibleItems;
 		if(slider.arInvisible && slider.arInvisible.length)
 			slider.$e.append(slider.arInvisible);
@@ -78,6 +91,29 @@
 			});
 			$(slider.arInvisible).detach();
 		};
+		if(options.fullscreen){
+			var resizeHandler = function(evt){
+				slider.$e.parent().height($win.height());
+			};
+			resizeHandler();
+			$win.off('resize.loopslider')
+				.on('resize.loopslider',resizeHandler);
+			slider.$e.parent().addClass('loopslider-fullscreen');
+		}
+		if(options.parallax){
+			$win.off('scroll.loopslider'+index)
+				.on('scroll.loopslider'+index,function(){
+					var scrollTop = $(window).scrollTop()
+						,$items = slider.$items()
+						,top = $items.offset().top
+						,handler = function(){
+							var $e = $(this).find(options.parallax.e);
+							$e.css('background-position-y',(scrollTop - top) * options.parallax.index);
+						};
+					$items.each(handler);
+					$(slider.arInvisible).each(handler);
+				});
+		};
 		return slider;
 	};
 	
@@ -85,18 +121,19 @@
 		$(sliders).each(function(){
 			var slider = this
 				,numPages = Math.ceil(slider.length / options.visibleItems)
-				,$e = $(options.htmlPaginationContainer);
+				,$e = $(options.htmlPaginationContainer)
+				,$eCont = $e.hasClass('loopslider-pagination') ? $e : $e.find('.loopslider-pagination');
 			if(slider.$pagination)
 				slider.$pagination.parent().remove();
 			if(!slider.enabled)
 				return true;
 			for(var i = 0; i < numPages; i++)
 				$(options.htmlPaginationItem)
-					.appendTo($e)
+					.appendTo($eCont)
 					.addClass('loopslider-page-nav-item')
 					.click(function(i){return function(){moveTo(i*options.visibleItems);};}(i));
 			$e.insertAfter(slider.$e.parent());
-			slider.$pagination = $e.find('>.loopslider-page-nav-item');
+			slider.$pagination = $e.find('.loopslider-page-nav-item');
 			activatePageNavItem(slider);
 		});
 	};
@@ -120,6 +157,7 @@
 	function navigation(){
 		$(sliders).each(function(){
 			var slider = this
+				,$img = slider.$e.find('img')
 				,setHeight = function(){
 					var h = slider.$e.parent().height() / 2;
 					slider.prevButton.css('top',h - slider.prevButton.height()/2);
@@ -132,7 +170,7 @@
 				this.nextButton = addSvgButton('next',slider.$e.parent())
 					.click(function(){next();});
 			setHeight();
-			slider.$e.find('img').load(setHeight);
+			$img.on('load',setHeight);
 		});
 	};
 	
@@ -283,8 +321,8 @@
 			if(options.responsive[width])
 				$.extend(options,options.responsive[width]);
 		};
-		$(sliders).each(function(){
-			init(this);
+		$(sliders).each(function(i){
+			init(this,i);
 		});
 		if(options.navigation)
 			navigation();
