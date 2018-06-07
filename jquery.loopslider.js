@@ -109,6 +109,7 @@
 						,handler = function(){
 							var $e = $(this).find(options.parallax.e);
 							$e.css('background-position-y',(scrollTop - top) * options.parallax.index);
+							$e.addClass('loopslider-parallax-container');
 						};
 					$items.each(handler);
 					$(slider.arInvisible).each(handler);

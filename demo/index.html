@@ -14,7 +14,7 @@
 <div class="container">
 	<header class="page-header">
 		<h1>LoopSlider</h1>
-		<p class="lead">jQuery plugin for creating a responsive slider with infinite loop support. Requires jQuery 1.12.0 or higher, dosen't work with the slim build. <a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
+		<p class="lead">jQuery plugin for creating a responsive slider with infinite loop support. <a href="https://github.com/pgooood/loopslider"><i class="material-icons">file_download</i> Download on GitHub</a></p>
 	</header>
 </div>
 <div class="header-slider">
@@ -51,7 +51,7 @@
 	<p>&nbsp;</p>
 	
 	<h2>Basic Usage</h2>
-	<p>Load the jQuery javascript and LoopSlider plugin's files on the page.</p>
+	<p>Load the jQuery javascript and LoopSlider plugin's files on the page. Requires jQuery 1.12.0 or higher, dosen't work with the slim build.</p>
 	<pre class="prettyprint">
 &lt;link rel="stylesheet" href="../loopslider.css"&gt;
 &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt;
@@ -137,13 +137,13 @@ $(function(){
 	<p>Set your images as background of slide elements</p>
 	<pre class="prettyprint">
 &lt;div class="slider-container"&gt;
-	&lt;figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+	&lt;figure style="background-image: url(images/ih1.jpg); min-height: 300px;"&gt;
 		&lt;figcaption class="card-body"&gt;Image caption 1&lt;/figcaption&gt;
 	&lt;/figure&gt;
-	&lt;figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+	&lt;figure style="background-image: url(images/ih2.jpg); min-height: 300px;"&gt;
 		&lt;figcaption class="card-body"&gt;Image caption 2&lt;/figcaption&gt;
 	&lt;/figure&gt;
-	&lt;figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;"&gt;
+	&lt;figure style="background-image: url(images/ih3.jpg); min-height: 300px;"&gt;
 		&lt;figcaption class="card-body"&gt;Image caption 3&lt;/figcaption&gt;
 	&lt;/figure&gt;
 &lt;/div&gt;
@@ -170,13 +170,13 @@ $(function(){
 	});
 });</pre>
 	<div class="parallax-slider">
-		<figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figure style="background-image: url(images/ih1.jpg); min-height: 300px;">
 			<figcaption class="card-body">Image caption 1</figcaption>
 		</figure>
-		<figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figure style="background-image: url(images/ih2.jpg); min-height: 300px;">
 			<figcaption class="card-body">Image caption 2</figcaption>
 		</figure>
-		<figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+		<figure style="background-image: url(images/ih3.jpg); min-height: 300px;">
 			<figcaption class="card-body">Image caption 3</figcaption>
 		</figure>
 	</div>
@@ -198,7 +198,7 @@ $('.slider-container').loopslider({
 		,760: {visibleItems: 3,step: 3}
 		,1000: {visibleItems: 4,step: 3}
 	}
-	,fullscreen: false
+	,fullscreen: false  //If true sets the height of the slides equal of a viewport height
 	,parallax: null
 	
 	// Controls

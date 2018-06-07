@@ -45,13 +45,13 @@ Parallax mode
 Set your images as background of slide elements
 ```html
 <div class="slider-container">
-	<figure style="background: url(images/ih1.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+	<figure style="background-image: url(images/ih1.jpg); min-height: 300px;">
 		<figcaption class="card-body">Image caption 1</figcaption>
 	</figure>
-	<figure style="background: url(images/ih2.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+	<figure style="background-image: url(images/ih2.jpg); min-height: 300px;">
 		<figcaption class="card-body">Image caption 2</figcaption>
 	</figure>
-	<figure style="background: url(images/ih3.jpg) no-repeat; background-size: 100% auto; min-height: 300px;">
+	<figure style="background-image: url(images/ih3.jpg); min-height: 300px;">
 		<figcaption class="card-body">Image caption 3</figcaption>
 	</figure>
 </div>
